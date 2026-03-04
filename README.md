@@ -1,229 +1,133 @@
 # Cifra Club API
 
-Esse projeto cria uma API Rest para obter a cifra
-de uma música do [Cifra Club](https://www.cifraclub.com.br).
+REST API para obtener cifras (acordes) de canciones desde [Cifra Club](https://www.cifraclub.com.br), disponibles en formato JSON.
 
-A ideia é disponibilizar as cifras em formato JSON através de uma
-interface de API Rest, para facilitar a interação com outros sistemas
-ou criar automações.
+El endpoint `/artists/:artist/songs/:song` utiliza Selenium para navegar la página web y extraer la cifra y los metadatos de la canción.
 
-O endpoint de API `/artists/:artist/songs/:song` executa um WebDriver do Selenium
-para ler a página web e extrair a cifra e meta dados da música, no formato de JSON.
+---
 
-# Como rodar o projeto no seu computador?
+## 🚀 Cómo ejecutar el proyecto
 
-Para executar o projeto na sua máquina local, certifique-se
-que você tem o docker e docker compose instalados.
-E então, execute:
+Asegúrate de tener **Docker** y **Docker Compose** instalados. Luego ejecuta:
 
-```console
+```bash
 docker-compose build
 docker-compose up
 ```
 
-Esse comando irá subir o projeto em
-[localhost:3000](http://localhost:3000).
+Por defecto, la API queda disponible en [http://localhost:3000](http://localhost:3000).
 
-Para os geeks que usam Makefile, basta executar:
+### Cambiar el puerto
 
-```console
+Puedes cambiar el puerto usando la variable de entorno `PORT`:
+
+```bash
+PORT=3001 docker-compose up
+```
+
+O con Makefile:
+
+```bash
 make up
 ```
 
-# Como pegar uma cifra?
+---
 
-Com o projeto rodando, você pode abrir o navegador com a seguinte URL:
+## 📖 Documentación interactiva (Swagger UI)
 
-http://localhost:3000/artists/coldplay/songs/the-scientist
+Una vez que el proyecto esté corriendo, puedes acceder a la documentación interactiva en:
 
-Ou se preferir obter o json da música pelo terminal, execute:
-
-```console
-curl localhost:3000/artists/coldplay/songs/the-scientist
+```
+http://localhost:3000/apidocs
 ```
 
-O retorno da API será algo como:
+Desde allí puedes explorar los endpoints y probarlos directamente en el navegador.
+
+---
+
+## 🎸 Cómo obtener una cifra
+
+Con el proyecto corriendo, abre el navegador en:
+
+```
+http://localhost:3000/artists/coldplay/songs/the-scientist
+```
+
+O desde la terminal:
+
+```bash
+curl http://localhost:3000/artists/coldplay/songs/the-scientist
+```
+
+### Respuesta exitosa (`200 OK`)
 
 ```json
 {
   "artist": "Coldplay",
   "name": "The Scientist",
-  "youtube_url": "https://www.youtube.com/watch?v=RB-RcX5DS5A"
+  "youtube_url": "https://www.youtube.com/watch?v=RB-RcX5DS5A",
   "cifraclub_url": "https://www.cifraclub.com.br/coldplay/the-scientist",
   "cifra": [
     "[Intro]  C#m7  A9  E  E9",
     "",
-    "[Intro e Primeira Parte]",
-    "",
-    "Parte 1 de 2",
-    "   C#m7              A9",
-    "E|------------------------------------------| ",
-    "B|-0---0---0---0----0---0---0---0-----------| ",
-    "G|-1---1---1---1----2---2---2---2-----------| ",
-    "D|-2---2---2---2----2---2---2---2-----------| ",
-    "A|-4-4-4-4-4-4-4-4--0-0-0-0-0-0-0-0---------| ",
-    "E|------------------------------------------| ",
-    "",
-    "",
-    "Parte 2 de 2",
-    "   E                E9",
-    "E|------------------------------------------| ",
-    "B|-0---0---0---0----0---0---0---0-----------| ",
-    "G|-1---1---1---1----1---1---1---1-----------| ",
-    "D|-2---2---2---2----4---4---4---4-----------| ",
-    "A|------------------------------------------| ",
-    "E|-0-0-0-0-0-0-0-0--0-0-0-0-0-0-0-0---------| ",
-    "",
-    "[Primeira Parte]",
-    "",
     "C#m7             A9",
     "     Come up to meet you",
-    "              E",
-    "Tell you I'm sorry",
-    "                    E9        C#m7",
-    "You don't know how lovely you are",
-    "",
-    "          A9",
-    "I had to find you",
-    "            E",
-    "Tell you I need you",
-    "               E9       C#m7",
-    "Tell you I'll set you apart",
-    "",
-    "                 A9",
-    "Tell me your secrets",
-    "                  E",
-    "And ask me your questions",
-    "             E9           C#m7",
-    "Oh, lets go back to the start",
-    "",
-    "            A9",
-    "Running in circles",
-    "           E",
-    "Coming up tails",
-    "             E9",
-    "Heads on a science apart",
-    "",
+    "...",
     "[Refrão]",
-    "",
-    "A9                      E",
-    "  Nobody said it was easy",
-    "              E9             A9",
-    "It's such a shame for us to part",
-    "                      E",
-    "Nobody said it was easy",
-    "             E7M(9)        E6      B",
-    "No one ever said it would be this hard",
-    "",
-    "Oh take me back to the start",
-    "",
-    "[Segunda Parte] E  A9  E  E9",
-    "",
-    "[Segunda Parte]",
-    "",
-    "Parte 1 de 5",
-    "   A9",
-    "E|------------------------------------------| ",
-    "B|-0---0---0---0----0---0---0---0-----------| ",
-    "G|-2---2---2---2----2---2---2---2-----------| ",
-    "D|-2---2---2---2----2---2---2---2-----------| ",
-    "A|-0-0-0-0-0-0-0-0--0-0-0-0-0-0-0-0---------| ",
-    "E|------------------------------------------| ",
-    "",
-    "",
-    "Parte 2 de 5",
-    "   E                E9",
-    "E|------------------------------------------| ",
-    "B|-0---0---0---0----0---0---0---0-----------| ",
-    "G|-1---1---1---1----1---1---1---1-----------| ",
-    "D|-2---2---2---2----4---4---4---4-----------| ",
-    "A|------------------------------------------| ",
-    "E|-0-0-0-0-0-0-0-0--0-0-0-0-0-0-0-0---------| ",
-    "",
-    "",
-    "Parte 3 de 5",
-    "   A9",
-    "E|------------------------------------------| ",
-    "B|-0---0---0---0----0---0---0---0-----------| ",
-    "G|-2---2---2---2----2---2---2---2-----------| ",
-    "D|-2---2---2---2----2---2---2---2-----------| ",
-    "A|-0-0-0-0-0-0-0-0--0-0-0-0-0-0-0-0---------| ",
-    "E|------------------------------------------| ",
-    "",
-    "",
-    "Parte 4 de 5",
-    "   E               E7M(9)   E6",
-    "E|------------------------------------------| ",
-    "B|-0---0---0---0----7---7---5---5-----------| ",
-    "G|-1---1---1---1----8---8---6---6-----------| ",
-    "D|-2---2---2---2----6---6---6---6-----------| ",
-    "A|------------------------------------------| ",
-    "E|-0-0-0-0-0-0-0-0--0-0-0-0-0-0-0-0---------| ",
-    "",
-    "",
-    "Parte 5 de 5",
-    "   B",
-    "E|------------------2-----------------------| ",
-    "B|-4---4---4---4-5--------------------------| ",
-    "G|-4---4---4---4-4--4-----------------------| ",
-    "D|-4---4---4---4-4--4-----------------------| ",
-    "A|-2-2-2-2-2-2-2-2--2-----------------------| ",
-    "E|------------------------------------------| ",
-    "",
-    "C#m7             A9",
-    "     I was just guessing",
-    "                E",
-    "At numbers and figures",
-    "              E9       C#m7",
-    "Pulling your puzzles apart",
-    "",
-    "               A9",
-    "Questions of science",
-    "              E",
-    "Science and progress",
-    "                 E9          C#m7",
-    "Do not speak as loud as my heart",
-    "",
-    "             A9",
-    "Tell me you love me",
-    "               E",
-    "Come back and haunt me",
-    "          E9           C#m7",
-    "Oh and I rush to the start",
-    "",
-    "            A9",
-    "Running in circles",
-    "             E",
-    "Chasing our tails",
-    "        E9        B11/D#",
-    "Coming back as we are",
-    "",
-    "[Refrão]",
-    "",
-    "A9                       E",
-    "   Nobody said it was easy",
-    "              E9             A9",
-    "It's such a shame for us to part",
-    "                      E",
-    "Nobody said it was easy",
-    "             E7M              E6  B",
-    "No one ever said it would be so  hard",
-    "                        E  A9  E  E9",
-    "I'm going back to the start",
-    "",
-    "[Final]",
-    "",
-    "( C#m7  A9  E )",
-    "",
-    "C#m7    A9             E  E9",
-    "     Oh uhhh  uh uh uh uh",
-    "C#m7    A9             E  E9",
-    "     Oh uhhh  uh uh uh uh",
-    "C#m7    A9             E  E9",
-    "     Oh uhhh  uh uh uh uh",
-    "C#m7    A9             E",
-    "     Oh uhhh  uh uh uh uh",
-    ""
+    "...",
+    "Nobody said it was easy"
   ]
 }
+```
+
+### Canción no encontrada (`404 Not Found`)
+
+```json
+{
+  "error": "Song or artist not found or could not be parsed.",
+  "details": "Failed to extract cifra from https://www.cifraclub.com.br/..."
+}
+```
+
+### Error interno (`500 Internal Server Error`)
+
+```json
+{
+  "error": "Internal server error while processing the request.",
+  "details": "..."
+}
+```
+
+---
+
+## ⚙️ Variables de entorno
+
+| Variable       | Descripción                                               | Default                          |
+|----------------|-----------------------------------------------------------|----------------------------------|
+| `PORT`         | Puerto expuesto por la API Flask                          | `3000`                           |
+| `SELENIUM_URL` | URL del servidor Selenium remoto                          | `http://selenium:4444/wd/hub`    |
+
+---
+
+## 📦 Stack
+
+- **Python 3.8** + **Flask 2.2.2**
+- **Selenium 4.6.0** con Firefox (Selenium Grid)
+- **BeautifulSoup4** para parsear el HTML
+- **Flasgger** para la documentación Swagger/OpenAPI
+
+---
+
+## 🛠️ Desarrollo
+
+### Lint
+
+```bash
+make lint
+```
+
+### Tests
+
+```bash
+make test
 ```

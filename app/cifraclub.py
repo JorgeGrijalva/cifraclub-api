@@ -20,13 +20,18 @@ class CifraClub():
         result['cifraclub_url'] = url
         try:
             self.driver.get(url)
+            
+            # Use implicit wait for elements instead of failing immediately
+            self.driver.implicitly_wait(5)
+            
             self.get_details(result)
             self.get_cifra(result)
+        except Exception as e:
+            # Re-raise so api.py can handle HTTP 404/500
             self.driver.quit()
-        except: # pylint: disable=bare-except
-            # NoSuchElementException
-            result['error'] = "error description"
-
+            raise ValueError(f"Failed to extract cifra from {url}: {str(e)}")
+            
+        self.driver.quit()
         return result
 
     def get_details(self, result):
