@@ -7,10 +7,11 @@ services:
     volumes: 
       - ./app:/app
     ports: 
-      - 3000:3000
+      - "${PORT:-3000}:3000"
     environment: 
       PYTHONPATH: /app
       SELENIUM_URL: http://selenium:4444/wd/hub
+      PORT: ${PORT:-3000}
     depends_on:
       - "selenium"
 
