@@ -1,16 +1,16 @@
-"""CifraClub Module"""
-
+import os
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 CIFRACLUB_URL = "https://www.cifraclub.com.br/"
+SELENIUM_URL = os.getenv("SELENIUM_URL", "http://selenium:4444/wd/hub")
 
 class CifraClub():
     """CifraClub Class"""
     def __init__(self):
-        self.driver = webdriver.Remote("http://selenium:4444/wd/hub", DesiredCapabilities.FIREFOX)
+        self.driver = webdriver.Remote(SELENIUM_URL, DesiredCapabilities.FIREFOX)
 
     def cifra(self, artist: str, song: str) -> dict:
         """Lê a página HTML e extrai a cifra e meta dados da música."""
